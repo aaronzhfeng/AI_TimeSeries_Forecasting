@@ -1,11 +1,14 @@
+from pathlib import Path
 import pandas as pd
 import pandas_ta as ta
-from pathlib import Path
+import numpy as np                    
 from scipy import stats
 
-RAW = Path(__file__).resolve().parents[1] / "data" / "interim" / "clean.parquet"
-OUT = Path(__file__).resolve().parents[1] / "data" / "processed"
-OUT.mkdir(exist_ok=True)
+ROOT = Path(__file__).resolve().parents[2]        # repo root
+RAW  = ROOT / "data" / "interim" / "clean.parquet"
+OUT  = ROOT / "data" / "processed"
+OUT.mkdir(parents=True, exist_ok=True)
+
 
 df = pd.read_parquet(RAW)
 
