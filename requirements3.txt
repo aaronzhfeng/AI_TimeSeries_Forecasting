@@ -1,0 +1,5 @@
+# requirements.txt  – append
+torch>=2.2            # CUDA wheels auto-detect GPU env
+torchmetrics          # nice MAE/RMSE helpers
+tqdm
+optuna                # lightweight Bayesian search (optional)
