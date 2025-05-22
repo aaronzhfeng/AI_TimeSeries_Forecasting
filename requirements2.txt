@@ -1,0 +1,5 @@
+# requirements.txt  – append
+pmdarima~=2.0      # auto_arima
+statsmodels~=0.14
+arch>=6.0,<7.0         # GARCH
+joblib~=1.4        # serialize models
