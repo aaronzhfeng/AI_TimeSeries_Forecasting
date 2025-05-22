@@ -1,0 +1,10 @@
+pandas~=2.2
+numpy
+scipy
+matplotlib
+seaborn
+statsmodels
+pandas-ta        # technical indicators
+ta               # alt tech-analysis lib
+yfinance         # quick ad-hoc pulls
+pyarrow          # fast Parquet I/O
