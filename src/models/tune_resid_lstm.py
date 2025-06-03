@@ -59,7 +59,7 @@ def objective(trial: optuna.trial.Trial):
     class Net(nn.Module):
         def __init__(self):
             super().__init__()
-            self.lstm = nn.LSTM(1, hidden, num_layers=1,
+            self.lstm = nn.LSTM(1, hidden, num_layers=2,
                                 batch_first=True, dropout=drop)
             self.fc   = nn.Linear(hidden, 1)
         def forward(self, xb):
@@ -71,6 +71,7 @@ def objective(trial: optuna.trial.Trial):
     opt   = torch.optim.AdamW(model.parameters(), lr=lr)
     loss_fn = nn.MSELoss()
     best_val = np.inf; wait = 0
+    val_curve_list = []          # <-- new
 
     for epoch in range(MAX_EPOCHS):
         # ---- train
@@ -88,6 +89,7 @@ def objective(trial: optuna.trial.Trial):
                 xb,yb = xb.to(DEVICE), yb.to(DEVICE)
                 val_loss += loss_fn(model(xb), yb).item()*len(xb)
         val_loss /= len(val_ds)
+        val_curve_list.append(float(val_loss))
 
         trial.report(val_loss, epoch)
         if trial.should_prune(): raise optuna.TrialPruned()
@@ -99,15 +101,21 @@ def objective(trial: optuna.trial.Trial):
             wait += 1
             if wait >= PATIENCE: break
 
+    trial.set_user_attr("val_curve", val_curve_list)
     # free GPU memory
     del model; torch.cuda.empty_cache(); gc.collect()
     return best_val
 
 # ── run study ------------------------------------------------------------
+db_path   = HPAR / "optuna_resid_lstm.db"          # …/artifacts/hparams/optuna_resid_lstm.db
 study = optuna.create_study(
-    direction="minimize",
-    pruner=optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=5),
+    study_name     = "resid_lstm_study",
+    storage        = f"sqlite:///{db_path}",
+    direction      = "minimize",
+    load_if_exists = True,                         # resume if the DB already exists
+    pruner         = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=5),
 )
+
 print("Starting Optuna study …")
 study.optimize(objective, n_trials=30, timeout=None, show_progress_bar=True)
 
