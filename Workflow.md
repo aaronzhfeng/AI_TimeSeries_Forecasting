@@ -89,7 +89,71 @@ Below is a structured, action-oriented checklist that turns every element of the
 
 ---
 
-### Phase 5  — Statistical Evaluation & Sensitivity
+### Phase 5 — Advanced Deep-Learning Models  *(new)*  
+
+1. **Transformer Family (TFT)**  
+   * Implement Temporal Fusion Transformer or equivalent sequence-to-sequence attention model with exogenous inputs.  
+   * Tune heads, hidden size, dropout, and learning-rate schedule (Optuna or random search ≤ 25 trials).  
+   * Early stopping on rolling-origin validation MAE.
+
+2. **N-BEATS**  
+   * Train generic & interpretable stacks on 30-day windows.  
+   * Tune block width, #stacks, trend/seasonality mode; monitor validation loss.  
+
+3. **Temporal Convolutional Network (TCN)**  
+   * Dilated causal convolutions (kernel 3, residual blocks) with exogenous channels.  
+   * Hyper-params: layers (4-6), filters (32-128), dilation growth.  
+
+4. **Evaluation**  
+   * Produce 1-step-ahead forecasts; record MAE / RMSE / MAPE.  
+   * Diebold-Mariano test vs. ARIMAX and LSTM.  
+   * Save weights → `artifacts/models/` and forecasts → `artifacts/forecasts/`.
+
+---
+
+### Phase 6 — Machine-Learning Regressors  *(new)*  
+
+1. **Feature Matrix Construction**  
+   * Sliding window of lags (≤ 30) for NASDAQ & macro; add rolling stats & tech indicators.  
+   * Time-series cross-validation splits (no shuffling).
+
+2. **XGBoost / LightGBM**  
+   * Grid/Bayesian search for trees, depth, learning rate.  
+   * Capture feature importance; log SHAP values.
+
+3. **Random Forest**  
+   * 500-tree baseline; tune max_depth / min_leaf for robustness.
+
+4. **Support Vector Regression (SVR)**  
+   * RBF kernel; grid search on C, γ, ε with standardized features.
+
+5. **Evaluation**  
+   * Rolling 1-day forecasts; MAE / RMSE / MAPE; DM test vs. ARIMAX.  
+   * Persist models & metrics.
+
+---
+
+### Phase 7 — Advanced Classical & Probabilistic Models  *(new)*  
+
+1. **Dynamic Linear / State-Space Regression**  
+   * Local-level + time-varying regression coefficients (Kalman filter).  
+   * Compare to static ARIMAX on structural-break periods.
+
+2. **VARMAX (Small System)**  
+   * Model NASDAQ + 2-3 key macro series jointly; conditional forecasts.  
+   * Check Granger causality & impulse-response for interpretability.
+
+3. **Bayesian Structural TS / Prophet**  
+   * Trend + changepoints + regressors with priors; sample posterior forecasts.  
+   * Report prediction-interval coverage & CRPS.
+
+4. **Evaluation**  
+   * Same point-forecast metrics; add interval coverage & calibration plots.  
+   * Summarize explainability benefits vs. accuracy.
+
+---
+
+### Phase 8  — Statistical Evaluation & Sensitivity
 
 1. **Metric computation**
 
@@ -108,7 +172,7 @@ Below is a structured, action-oriented checklist that turns every element of the
 
 ---
 
-### Phase 6  — Documentation & Deliverables
+### Phase 9  — Documentation & Deliverables
 
 1. **Maintain experiment notebook(s)**
 
@@ -127,7 +191,7 @@ Below is a structured, action-oriented checklist that turns every element of the
 
 ---
 
-### Phase 7  — Project Management & Risk Mitigation
+### Phase 10  — Project Management & Risk Mitigation
 
 1. **Weekly milestone reviews** (align with proposal’s Week 5-10 timetable).
 2. **Re-training schedule for non-stationarity** (decide on rolling window length).
