@@ -1,4 +1,3 @@
-Below is a structured, action-oriented checklist that turns every element of the proposal into concrete, trackable tasks.  I’ve grouped items by logical phase so you can drop them straight into a Kanban board or milestone tracker.  (Where a task spans two phases, I list it where it starts.)
 
 ---
 
@@ -177,15 +176,4 @@ Below is a structured, action-oriented checklist that turns every element of the
 1. **Maintain experiment notebook(s)**
 
    * Narrative EDA, model snippets, plots.
-2. **Write mathematical appendix**
-
-   * Explain dimensional analysis steps, perturbation math.
-3. **Draft final report**
-
-   * Structure: Intro, Methods, Results, Discussion, Limitations.
-   * Embed tables, figures, significance results.
-4. **Prepare slide deck**
-
-   * 10-12 slides emphasizing motivation, hybrid gains, key plots.
-5. **Rehearse & deliver presentation**
 
