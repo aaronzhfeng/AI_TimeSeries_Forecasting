@@ -189,23 +189,3 @@ Below is a structured, action-oriented checklist that turns every element of the
    * 10-12 slides emphasizing motivation, hybrid gains, key plots.
 5. **Rehearse & deliver presentation**
 
----
-
-### Phase 10  — Project Management & Risk Mitigation
-
-1. **Weekly milestone reviews** (align with proposal’s Week 5-10 timetable).
-2. **Re-training schedule for non-stationarity** (decide on rolling window length).
-3. **Regularize deep models** (dropout/L2, monitor validation gap).
-4. **Automated backups** of data, code, and experiment artifacts.
-
----
-
-### Optional Enhancements (time permitting)
-
-* Temporal Fusion Transformer (TFT) or N-BEATS baseline for comparison.
-* Probabilistic forecasting (quantiles, prediction intervals).
-* Simple trading-strategy back-test to demonstrate practical impact.
-
----
-
-Use this list as a living backlog: break each bullet into specific issues (code module, notebook, or experiment config) and tag them with the matching week number from the original timeline to keep progress visible. Good luck turning the proposal into results!
