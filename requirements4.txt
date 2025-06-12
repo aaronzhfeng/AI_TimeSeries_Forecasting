@@ -1,0 +1,3 @@
+# requirements.txt  – append
+pytorch-lightning
+pytorch-forecasting
