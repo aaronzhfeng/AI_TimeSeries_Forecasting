@@ -1,0 +1,5 @@
+# requirements.txt  – append
+xgboost
+lightgbm
+scikit-learn
+shap
